@@ -10,10 +10,7 @@ require("dotenv").config()
 
 
 
-// -------------------------- Body Parser --------------------------
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-app.use(bodyParser.json())
+
 app.use(morgan("dev"))
 app.use(cors({
     origin: "*",
@@ -78,6 +75,10 @@ app.post('/api/webhook', bodyParser.raw({ type: 'application/json' }), async (re
 
 })
 
+// -------------------------- Body Parser --------------------------
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(bodyParser.json())
 
 
 // -------------------------- PORT & Listen -------------------------- 
