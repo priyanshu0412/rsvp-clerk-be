@@ -69,7 +69,7 @@ app.post('/api/webhook', bodyParser.raw({ type: "application/json" }), async (re
         res.status(200).json({ success: true });
 
     } catch (error) {
-        res.status(400).json({ success: false, message: err.message });
+        res.status(400).json({ success: false, message: error.message });
     }
 
 })
@@ -77,7 +77,7 @@ app.post('/api/webhook', bodyParser.raw({ type: "application/json" }), async (re
 
 
 // -------------------------- PORT & Listen -------------------------- 
-const PORT = process.env.PORT | 3030
+const PORT = process.env.PORT || 3030
 
 app.listen(PORT, () => {
     console.log(`Server started On localhost:${PORT}`)
