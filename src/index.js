@@ -35,14 +35,18 @@ app.get("/", (req, res) => {
 
 
 // -------------------------- WebHook --------------------------
-app.post('/api/webhook', bodyParser.raw({ type: "application/json" }), async (req, res) => {
+app.post('/api/webhook', bodyParser.raw({ type: 'application/json' }), async (req, res) => {
 
     try {
-
+        console.log('Headers:', req.headers);
+        console.log('Raw Body:', req.body.toString());
         const wh = new Webhook(process.env.CLERK_WEBHOOK_SECRET_KEY)
+        console.log("wh", wh)
         const payloadString = req.body.toString();
         const svixHeaders = req.headers;
         const evt = wh.verify(payloadString, svixHeaders);
+
+        console.log('Webhook Event:', evt);
         const { id, ...attributes } = evt.data;
         const eventType = evt.type;
 
