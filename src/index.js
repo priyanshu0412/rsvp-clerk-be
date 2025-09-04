@@ -6,11 +6,13 @@ const cors = require("cors")
 const DBConnection = require("./db")
 const { Webhook } = require("svix")
 const User = require("./models/user.model")
+const eventRoutes = require("../src/routes/events.routes")
+const bookingRoutes = require("../src/routes/bookEvent.routes")
 require("dotenv").config()
 
 
 
-
+// CORS & Logs 
 app.use(morgan("dev"))
 app.use(cors({
     origin: "*",
@@ -74,6 +76,12 @@ app.post('/api/webhook', bodyParser.raw({ type: 'application/json' }), async (re
     }
 
 })
+
+
+// Events Routes 
+app.use("/api/event", eventRoutes)
+app.use("/api/event/book", bookingRoutes)
+
 
 // -------------------------- Body Parser --------------------------
 app.use(express.json())
