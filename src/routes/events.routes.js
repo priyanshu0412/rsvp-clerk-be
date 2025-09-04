@@ -5,8 +5,9 @@ const router = express.Router()
 
 router.post("/", clerkAuthMiddleware, createEvent)
 router.get("/", getAllEvents)
-router.get("/:id", getEventById)
-router.patch("/:id", updateEventById)
-router.delete("/:id", deleteEventById)
+router.get("/:id", clerkAuthMiddleware, getEventById)
+router.patch("/:id", clerkAuthMiddleware, updateEventById)
+router.delete("/:id", clerkAuthMiddleware, deleteEventById)
+router.get("/my-events", clerkAuthMiddleware, getMyEvents)
 
 module.exports = router
