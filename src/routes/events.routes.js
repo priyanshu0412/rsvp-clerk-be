@@ -1,5 +1,5 @@
 const express = require("express")
-const { createEvent, getAllEvents, getEventById, updateEventById, deleteEventById } = require("../controller/event.controller")
+const { createEvent, getAllEvents, getEventById, updateEventById, deleteEventById, getMyEvents } = require("../controller/event.controller")
 const clerkAuthMiddleware = require("../middleware/clerkAuthMiddleware")
 const router = express.Router()
 
