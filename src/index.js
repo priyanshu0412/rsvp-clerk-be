@@ -12,15 +12,6 @@ require("dotenv").config()
 
 
 
-// CORS & Logs 
-app.use(morgan("dev"))
-app.use(cors({
-    origin: "*",
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD"]
-}))
-
-
-
 // -------------------------- DB Connection --------------------------
 DBConnection()
 
@@ -78,15 +69,27 @@ app.post('/api/webhook', bodyParser.raw({ type: 'application/json' }), async (re
 })
 
 
-// Events Routes 
-app.use("/api/event", eventRoutes)
-app.use("/api/event/book", bookingRoutes)
-
 
 // -------------------------- Body Parser --------------------------
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(bodyParser.json())
+
+
+
+// -------------------------- CORS & Logs  -------------------------- 
+app.use(morgan("dev"))
+app.use(cors({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD"]
+}))
+
+
+
+// Events Routes 
+app.use("/api/event", eventRoutes)
+app.use("/api/event/book", bookingRoutes)
+
 
 
 // -------------------------- PORT & Listen -------------------------- 
