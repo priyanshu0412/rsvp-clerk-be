@@ -12,6 +12,8 @@ const createEvent = async (req, res) => {
         description
     } = req.body
 
+    const createdBy = req.userId
+
     if (!title || !location || !availableTickets || !price || !category || !description) {
         res.status(400).send({ message: "All the Fields Required" })
     }
@@ -34,7 +36,7 @@ const createEvent = async (req, res) => {
             category,
             description,
             participants: [],
-            createdBy: req.userId,
+            createdBy
         });
         await event.save();
         res.status(200).json({ message: "Event Created Successfully", data: event });
