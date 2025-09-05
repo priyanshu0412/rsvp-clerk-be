@@ -13,6 +13,7 @@ const createEvent = async (req, res) => {
     } = req.body
 
     const createdBy = req.userId
+    console.log("req.userId:", req.userId);
 
     if (!title || !location || !availableTickets || !price || !category || !description) {
         res.status(400).send({ message: "All the Fields Required" })
