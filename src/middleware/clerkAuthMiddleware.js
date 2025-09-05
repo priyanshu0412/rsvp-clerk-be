@@ -15,6 +15,7 @@ const clerkAuthMiddleware = async (req, res, next) => {
     try {
         const session = await clerk.verifyToken(token);
         req.userId = session.userId;
+        console.log("session.userId:", session.userId);
         next();
 
     } catch (err) {
