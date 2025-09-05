@@ -8,10 +8,11 @@ const createEvent = async (req, res) => {
         participantsLimit,
         availableTickets,
         price,
-        category
+        category,
+        description
     } = req.body
 
-    if (!title || !location || !availableTickets || !price || !category) {
+    if (!title || !location || !availableTickets || !price || !category || !description) {
         res.status(400).send({ message: "All the Fields Required" })
     }
 
@@ -31,6 +32,7 @@ const createEvent = async (req, res) => {
             participantsLimit,
             price,
             category,
+            description,
             participants: [],
             createdBy: req.userId,
         });
@@ -45,7 +47,7 @@ const createEvent = async (req, res) => {
 const getAllEvents = async (req, res) => {
     try {
         const events = await Event.find();
-        res.status(200).send({ message: events })
+        res.status(200).send({ message: "Events Retrieved", data: events });
 
     } catch (error) {
         res.status(500).json({ message: error.message });
