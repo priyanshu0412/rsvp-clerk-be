@@ -15,6 +15,7 @@ const clerkAuthMiddleware = async (req, res, next) => {
 
     try {
         const session = await clerk.verifyToken(token);
+        console.log("session.userId" , )
 
         // if User is not found in DB 
         const isUserExist = await User.findOne({ clerkUserId: session.userId })
