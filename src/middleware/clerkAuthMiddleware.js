@@ -18,7 +18,7 @@ const clerkAuthMiddleware = async (req, res, next) => {
         const decoded = jwt.decode(token);
         console.log("🔑 Decoded token:", decoded);
 
-        const { payload } = await verifyToken(token, {
+        const  payload  = await verifyToken(token, {
             secretKey: process.env.CLERK_SECRET_KEY,
             issuer: "https://intent-terrier-89.clerk.accounts.dev",
             // audience: "https://rsvp-clerk-be.onrender.com", // abhi hata diya
