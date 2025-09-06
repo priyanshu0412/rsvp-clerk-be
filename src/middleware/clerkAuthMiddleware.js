@@ -11,6 +11,8 @@ const clerkAuthMiddleware = async (req, res, next) => {
     try {
         const { payload } = await verifyToken(token, {
             secretKey: process.env.CLERK_SECRET_KEY,
+            issuer: "https://intent-terrier-89.clerk.accounts.dev",
+            audience: "http://localhost:3030",
         });
 
         req.userId = payload.sub;
