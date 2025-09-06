@@ -1,11 +1,9 @@
-const { Clerk } = require("@clerk/clerk-sdk-node");
-require("dotenv").config()
-const clerk = new Clerk({ apiKey: process.env.CLERK_SECRET_KEY });
+const { verifyToken } = require('@clerk/backend');
+require("dotenv").config();
 
-// -------------------------------------
+// ----------------------------------------
 
 const clerkAuthMiddleware = async (req, res, next) => {
-
     const authHeader = req.headers.authorization;
     if (!authHeader) return res.status(401).json({ message: 'Missing auth header' });
 
@@ -13,16 +11,18 @@ const clerkAuthMiddleware = async (req, res, next) => {
     if (!token) return res.status(401).json({ message: 'Invalid auth format' });
 
     try {
-        const session = await clerk.verifyToken(token);
-        req.userId = session.userId;
-        console.log("session.userId:", session.userId);
+        const { payload } = await verifyToken(token, {
+            issuer: 'https://rsvp-clerk-be.onrender.com',
+            authorizedParties: ['http://localhost:3000'],
+            secretKey: process.env.CLERK_SECRET_KEY,
+        });
+
+        req.userId = payload.sub;
+        console.log("req.userId:", req.userId);
         next();
-
     } catch (err) {
-        return res.status(401).json({ message: 'Invalid token' });
+        return res.status(401).json({ message: 'Invalid token', error: err.message });
     }
+};
 
-}
-
-
-module.exports = clerkAuthMiddleware
+module.exports = clerkAuthMiddleware;
