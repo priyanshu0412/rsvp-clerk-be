@@ -121,7 +121,7 @@ const getMyEvents = async (req, res) => {
     try {
         const userId = req.userId;
         const events = await Event.find({ createdBy: userId });
-        return res.status(200).send({ message: events });
+        return res.status(200).send({ message: "Retrieved Events", data: events });
     } catch (error) {
         return res.status(500).send({ message: "Internal Server Error", error: error.message });
     }
